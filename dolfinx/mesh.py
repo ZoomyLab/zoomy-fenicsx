@@ -16,7 +16,7 @@ from dolfinx import mesh as dolfinx_mesh
 import numpy.typing as npt
 
 
-from zoomy_core.mesh.mesh import Mesh
+from zoomy_core.mesh import FVMMesh as Mesh  # was: from zoomy_core.mesh.mesh import Mesh
 
 
 def compute_facet_distances(mesh: mesh.Mesh) -> fem.Function:
@@ -70,7 +70,7 @@ def compute_facet_distances(mesh: mesh.Mesh) -> fem.Function:
 
 
 def load_mesh(path_to_mesh):
-    mesh = Mesh.from_gmsh(path_to_mesh)
+    mesh = Mesh.from_msh(path_to_mesh)
     min_inradius = np.min(mesh.cell_inradius)
     tags = [int(v) for v in mesh.boundary_conditions_sorted_physical_tags]
     tags.sort()
