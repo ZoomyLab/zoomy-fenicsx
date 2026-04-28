@@ -24,7 +24,7 @@ import numpy.typing as npt
 from attrs import define, field
 
 from zoomy_jax.fvm.solver_jax import Settings
-from zoomy_core.mesh.mesh import Mesh
+from zoomy_core.mesh import FVMMesh as Mesh  # was: from zoomy_core.mesh.mesh import Mesh
 from zoomy_core.misc.misc import Zstruct
 import zoomy_core.transformation.to_ufl as trafo
 from zoomy_core.misc import misc as misc
@@ -41,7 +41,7 @@ def load_mesh(path_to_mesh):
         print(comm.rank, " read")
 
         # Run custom serial-only mesh parser
-        mesh_serial = Mesh.from_gmsh(path_to_mesh)
+        mesh_serial = Mesh.from_msh(path_to_mesh)
         min_inradius = float(np.min(mesh_serial.cell_inradius))
         tags = [int(v) for v in mesh_serial.boundary_conditions_sorted_physical_tags]
         tags.sort()
